@@ -1,0 +1,97 @@
+// مخطط قاعدة البيانات — منصة البيقونية
+// مصمَّم ليتوسّع مستقبلًا لأكثر من متن عبر جدول Matn
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN      // أدمن عام للمنصة كلها
+  SUPERVISOR // مشرف على دفعة أو أكثر
+  STUDENT    // طالب
+}
+
+enum LinkType {
+  SLIDES        // عرض تقديمي
+  BOOK          // كتاب تفاعلي
+  SUMMARY       // ملخص
+  MEMORIZATION  // أداة حفظ
+  RECITATION    // أداة تسميع
+  QUIZ          // اختبار
+  VIDEO         // فيديو
+}
+
+// المتن — يسمح بالتوسع لمتون غير البيقونية مستقبلًا
+model Matn {
+  id        String   @id @default(cuid())
+  name      String   // مثال: "البيقونية"
+  slug      String   @unique
+  createdAt DateTime @default(now())
+
+  cohorts Cohort[]
+}
+
+model Cohort {
+  id           String    @id @default(cuid())
+  name         String    // مثال: "الدفعة ١٢ — مصطلح الحديث"
+  inviteCode   String    @unique // كود دخول خاص بهذه الدفعة فقط
+  matnId       String
+  matn         Matn      @relation(fields: [matnId], references: [id])
+  supervisorId String?
+  supervisor   User?     @relation("SupervisedCohorts", fields: [supervisorId], references: [id])
+  startDate    DateTime  @default(now())
+  createdAt    DateTime  @default(now())
+
+  students  User[]     @relation("StudentCohort")
+  chainLinks ChainLink[]
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(STUDENT)
+  createdAt    DateTime @default(now())
+
+  // الطالب منتمٍ لدفعة واحدة
+  cohortId String?
+  cohort   Cohort? @relation("StudentCohort", fields: [cohortId], references: [id])
+
+  // المشرف قد يتابع أكثر من دفعة
+  supervisedCohorts Cohort[] @relation("SupervisedCohorts")
+
+  progress Progress[]
+}
+
+// كل حلقة في سلسلة التعلّم (خدمة) داخل دفعة معينة، بموعد فتح مجدوَل
+model ChainLink {
+  id       String   @id @default(cuid())
+  cohortId String
+  cohort   Cohort   @relation(fields: [cohortId], references: [id])
+  title    String
+  type     LinkType
+  url      String   // رابط أو مسار المحتوى الفعلي (خارجي أو داخلي)
+  order    Int      // ترتيب الحلقة في السلسلة
+  unlockAt DateTime // موعد الفتح الأوتوماتيكي
+
+  progress Progress[]
+
+  @@index([cohortId, order])
+}
+
+model Progress {
+  id          String     @id @default(cuid())
+  userId      String
+  user        User       @relation(fields: [userId], references: [id])
+  chainLinkId String
+  chainLink   ChainLink  @relation(fields: [chainLinkId], references: [id])
+  completedAt DateTime?
+
+  @@unique([userId, chainLinkId])
+}

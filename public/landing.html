@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>البيقونية — سلسلة سند متكاملة لعلم المصطلح</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@300;400;500;700;900&family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink-900:#161E2E;
+    --ink-800:#1E2A3F;
+    --ink-700:#2A3A54;
+    --parchment:#F3E9D3;
+    --parchment-light:#FAF4E6;
+    --parchment-dim:#E4D6B4;
+    --seal:#A2402F;
+    --seal-dark:#7E301F;
+    --brass:#BD8F3E;
+    --brass-light:#D8B569;
+    --charcoal:#221E18;
+    --ink-soft: rgba(22,30,46,0.72);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink-900);
+    color:var(--parchment-light);
+    font-family:'Tajawal', sans-serif;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none;}
+
+  /* subtle paper-grain / vignette on dark sections */
+  .grain::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image: radial-gradient(circle at 20% 20%, rgba(189,143,62,0.06), transparent 40%),
+                       radial-gradient(circle at 80% 70%, rgba(162,64,47,0.07), transparent 45%);
+    pointer-events:none;
+  }
+
+  /* ===== NAV ===== */
+  header{
+    position:sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 6vw;
+    background:rgba(22,30,46,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(189,143,62,0.18);
+  }
+  .brand{display:flex; align-items:center; gap:12px;}
+  .brand .mark{
+    width:38px; height:38px; border-radius:50%;
+    border:1.5px solid var(--brass);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Aref Ruqaa', serif; font-size:20px; color:var(--brass-light);
+  }
+  .brand .name{font-family:'Aref Ruqaa', serif; font-size:22px; letter-spacing:0.5px; color:var(--parchment-light);}
+  nav ul{display:flex; gap:34px; list-style:none;}
+  nav a{font-size:15px; color:var(--parchment-dim); transition:color .2s;}
+  nav a:hover{color:var(--brass-light);}
+  .cta-btn{
+    padding:10px 24px; border-radius:3px;
+    background:var(--seal); color:var(--parchment-light);
+    font-weight:700; font-size:14px;
+    border:1px solid var(--seal-dark);
+    box-shadow:0 2px 0 var(--seal-dark);
+    transition:transform .15s;
+  }
+  .cta-btn:hover{transform:translateY(-1px);}
+  .cta-ghost{
+    padding:10px 22px; border-radius:3px;
+    border:1px solid rgba(189,143,62,0.5);
+    color:var(--brass-light); font-size:14px; font-weight:600;
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;
+    min-height:92vh;
+    display:flex; align-items:center;
+    padding:0 6vw;
+  }
+  .hero-inner{
+    display:grid; grid-template-columns:1.15fr 0.85fr; gap:60px;
+    align-items:center; width:100%; position:relative; z-index:2;
+  }
+  .eyebrow{
+    font-family:'Cairo', sans-serif; font-size:13px; letter-spacing:2px;
+    color:var(--brass-light); text-transform:uppercase;
+    display:flex; align-items:center; gap:10px; margin-bottom:22px;
+  }
+  .eyebrow::before{content:""; width:28px; height:1px; background:var(--brass);}
+  .hero h1{
+    font-family:'Aref Ruqaa', serif; font-weight:700;
+    font-size:clamp(38px,5vw,64px); line-height:1.35;
+    color:var(--parchment-light);
+    margin-bottom:26px;
+  }
+  .hero h1 span{color:var(--brass-light);}
+  .hero p.lead{
+    font-size:18px; line-height:1.9; color:var(--parchment-dim);
+    max-width:520px; margin-bottom:36px;
+  }
+  .hero-actions{display:flex; gap:16px; margin-bottom:48px;}
+  .hero-stats{display:flex; gap:40px;}
+  .hero-stats div{border-inline-start:1px solid rgba(189,143,62,0.3); padding-inline-start:16px;}
+  .hero-stats b{display:block; font-family:'Aref Ruqaa', serif; font-size:26px; color:var(--brass-light);}
+  .hero-stats span{font-size:13px; color:var(--parchment-dim);}
+
+  /* manuscript card */
+  .manuscript{
+    background:linear-gradient(180deg, var(--parchment-light), var(--parchment));
+    border-radius:2px;
+    padding:44px 36px;
+    position:relative;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.55), 0 0 0 1px rgba(189,143,62,0.35);
+    transform:rotate(-1deg);
+  }
+  .manuscript::after{
+    content:""; position:absolute; inset:10px;
+    border:1px solid rgba(162,64,47,0.25);
+    pointer-events:none;
+  }
+  .manuscript .tag{
+    font-family:'Cairo'; font-size:11px; letter-spacing:1.5px; color:var(--seal);
+    text-transform:uppercase; margin-bottom:14px; display:block;
+  }
+  .manuscript .verse{
+    font-family:'Aref Ruqaa', serif; font-size:26px; line-height:2.15;
+    color:var(--charcoal);
+  }
+  .manuscript .attribution{
+    margin-top:20px; font-size:13px; color:var(--seal-dark); font-family:'Cairo';
+  }
+  .manuscript .seal-stamp{
+    position:absolute; bottom:-18px; left:-18px;
+    width:64px; height:64px; border-radius:50%;
+    background:var(--seal); color:var(--parchment-light);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Aref Ruqaa'; font-size:13px; text-align:center; line-height:1.3;
+    box-shadow:0 8px 20px rgba(0,0,0,0.4);
+    transform:rotate(-8deg);
+    border:2px solid rgba(255,255,255,0.15);
+  }
+
+  /* ===== CHAIN SECTION ===== */
+  .chain-section{
+    position:relative; padding:120px 6vw 100px;
+    background:var(--ink-800);
+  }
+  .section-head{text-align:center; max-width:640px; margin:0 auto 80px;}
+  .section-head .eyebrow{justify-content:center;}
+  .section-head .eyebrow::before{display:none;}
+  .section-head h2{
+    font-family:'Aref Ruqaa', serif; font-size:clamp(28px,3.5vw,42px);
+    color:var(--parchment-light); margin-bottom:16px;
+  }
+  .section-head p{color:var(--parchment-dim); font-size:16px; line-height:1.8;}
+
+  .chain{
+    display:flex; align-items:flex-start; justify-content:center;
+    gap:0; flex-wrap:wrap; position:relative;
+  }
+  .link{
+    display:flex; flex-direction:column; align-items:center;
+    width:170px; position:relative; padding-top:8px;
+  }
+  .link .ring{
+    width:84px; height:84px; border-radius:50%;
+    border:2px solid var(--brass);
+    background:radial-gradient(circle at 35% 30%, var(--ink-700), var(--ink-900));
+    display:flex; align-items:center; justify-content:center;
+    font-size:30px; color:var(--brass-light);
+    box-shadow:0 0 0 5px var(--ink-800), 0 8px 18px rgba(0,0,0,0.4);
+    z-index:2; position:relative;
+  }
+  .link .index{
+    position:absolute; top:-6px; inset-inline-end:-2px;
+    width:22px;height:22px;border-radius:50%;
+    background:var(--seal); color:var(--parchment-light);
+    font-family:'Cairo'; font-size:11px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+    border:2px solid var(--ink-800);
+  }
+  .link h3{font-size:15px; font-weight:700; margin-top:16px; color:var(--parchment-light);}
+  .link p{font-size:12.5px; color:var(--parchment-dim); margin-top:6px; line-height:1.6;}
+  .connector{
+    width:46px; height:2px; margin-top:41px;
+    background-image:repeating-linear-gradient(90deg, var(--brass) 0 8px, transparent 8px 14px);
+    flex-shrink:0;
+  }
+
+  /* ===== WHY SECTION ===== */
+  .why{
+    padding:110px 6vw; background:var(--ink-900); position:relative;
+  }
+  .why-grid{
+    display:grid; grid-template-columns:0.9fr 1.1fr; gap:70px; align-items:center;
+    max-width:1180px; margin:0 auto;
+  }
+  .why h2{
+    font-family:'Aref Ruqaa', serif; font-size:clamp(30px,3.5vw,44px);
+    line-height:1.4; color:var(--parchment-light); margin-bottom:22px;
+  }
+  .why h2 em{font-style:normal; color:var(--brass-light);}
+  .why p{color:var(--parchment-dim); font-size:16px; line-height:1.9; margin-bottom:18px;}
+  .why-terms{display:flex; flex-direction:column; gap:0;}
+  .term{
+    display:flex; gap:20px; padding:22px 0;
+    border-bottom:1px solid rgba(189,143,62,0.18);
+  }
+  .term:first-child{padding-top:0;}
+  .term .t-word{
+    font-family:'Aref Ruqaa', serif; font-size:22px; color:var(--brass-light);
+    width:120px; flex-shrink:0;
+  }
+  .term .t-def{font-size:14.5px; color:var(--parchment-dim); line-height:1.8;}
+
+  /* ===== COHORTS ===== */
+  .cohorts{
+    padding:110px 6vw; background:var(--ink-800);
+    display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;
+  }
+  .cohort-card{
+    background:var(--ink-900); border:1px solid rgba(189,143,62,0.25);
+    border-radius:4px; padding:30px; position:relative;
+  }
+  .cohort-card + .cohort-card{margin-top:18px;}
+  .cohort-card .label{font-family:'Cairo'; font-size:12px; color:var(--brass-light); letter-spacing:1px;}
+  .cohort-card h4{font-family:'Aref Ruqaa', serif; font-size:20px; margin:8px 0 10px; color:var(--parchment-light);}
+  .cohort-card p{font-size:13.5px; color:var(--parchment-dim); line-height:1.7;}
+  .cohort-card .bar{height:5px; border-radius:3px; background:var(--ink-700); margin-top:16px; overflow:hidden;}
+  .cohort-card .bar span{display:block; height:100%; background:linear-gradient(90deg, var(--seal), var(--brass));}
+
+  /* ===== FOOTER / CTA ===== */
+  footer{
+    padding:90px 6vw 50px; background:var(--ink-900);
+    text-align:center; border-top:1px solid rgba(189,143,62,0.18);
+  }
+  footer h2{
+    font-family:'Aref Ruqaa', serif; font-size:clamp(28px,4vw,46px);
+    color:var(--parchment-light); margin-bottom:20px;
+  }
+  footer p{color:var(--parchment-dim); margin-bottom:34px;}
+  .foot-links{
+    display:flex; justify-content:center; gap:36px; margin-top:70px;
+    font-size:13px; color:var(--parchment-dim); flex-wrap:wrap;
+  }
+  .copyright{margin-top:24px; font-size:12px; color:rgba(243,233,211,0.35);}
+
+  .burger{display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; padding:6px;}
+  .burger span{width:24px; height:2px; background:var(--brass-light); display:block;}
+  .mobile-menu{
+    display:none; position:fixed; inset:0 0 auto 0; top:0;
+    background:var(--ink-900); z-index:60; padding:22px 6vw;
+    border-bottom:1px solid rgba(189,143,62,0.25);
+  }
+  .mobile-menu.open{display:block;}
+  .mobile-menu .close-row{display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;}
+  .mobile-menu ul{list-style:none; display:flex; flex-direction:column; gap:22px; margin-bottom:26px;}
+  .mobile-menu a{font-size:18px; color:var(--parchment-light);}
+  .mobile-menu .actions{display:flex; flex-direction:column; gap:12px;}
+
+  @media (max-width:860px){
+    header{padding:14px 5vw;}
+    nav{display:none;}
+    header > div:last-child{display:none;}
+    .burger{display:flex;}
+
+    .hero{min-height:auto; padding:48px 5vw 70px;}
+    .hero-inner{grid-template-columns:1fr; gap:40px;}
+    .hero h1{font-size:clamp(30px,8vw,40px);}
+    .hero p.lead{font-size:16px;}
+    .hero-actions{flex-direction:column;}
+    .hero-actions a{text-align:center;}
+    .hero-stats{gap:22px; flex-wrap:wrap;}
+    .manuscript{transform:none; order:-1; padding:32px 22px;}
+    .manuscript .verse{font-size:21px; line-height:2;}
+
+    .chain-section{padding:70px 5vw;}
+    .section-head{margin-bottom:50px;}
+    .why, .cohorts{padding:70px 5vw;}
+    .why-grid, .cohorts{grid-template-columns:1fr; gap:40px;}
+    .connector{display:none;}
+    .chain{gap:30px 22px;}
+    .link{width:130px;}
+    .link .ring{width:68px; height:68px; font-size:24px;}
+
+    .cohort-card{padding:22px;}
+    footer{padding:60px 5vw 40px;}
+    .foot-links{gap:20px 26px; margin-top:44px;}
+  }
+
+  @media (max-width:420px){
+    .chain{justify-content:space-between;}
+    .link{width:44%;}
+    .hero-stats{gap:16px 26px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="mark">ب</div>
+    <div class="name">البيقونية</div>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="#chain">المحتوى</a></li>
+      <li><a href="#why">عن المتن</a></li>
+      <li><a href="#cohorts">الدفعات</a></li>
+    </ul>
+  </nav>
+  <div style="display:flex; gap:12px;">
+    <a href="#" class="cta-ghost">تسجيل الدخول</a>
+    <a href="#" class="cta-btn">ابدأ الآن</a>
+  </div>
+  <button class="burger" id="burgerBtn" aria-label="فتح القائمة">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <div class="close-row">
+    <div class="brand"><div class="mark">ب</div><div class="name">البيقونية</div></div>
+    <button class="burger" id="closeBtn" aria-label="إغلاق القائمة"><span style="transform:rotate(45deg) translateY(3px);"></span><span style="transform:rotate(-45deg) translateY(-3px);"></span></button>
+  </div>
+  <ul>
+    <li><a href="#chain" class="menu-link">المحتوى</a></li>
+    <li><a href="#why" class="menu-link">عن المتن</a></li>
+    <li><a href="#cohorts" class="menu-link">الدفعات</a></li>
+  </ul>
+  <div class="actions">
+    <a href="#" class="cta-ghost" style="text-align:center;">تسجيل الدخول</a>
+    <a href="#" class="cta-btn" style="text-align:center;">ابدأ الآن</a>
+  </div>
+</div>
+
+<section class="hero grain" style="position:relative;">
+  <div class="hero-inner">
+    <div>
+      <div class="eyebrow">منصة تعلّم متن البيقونية</div>
+      <h1>سندٌ متصل من <span>المتن</span> إلى <span>الإتقان</span></h1>
+      <p class="lead">كل أداة درستها من قبل — الشرح، الاختبار، الحفظ، التسميع، الفيديو — توضع هنا في سلسلة واحدة مرتّبة، تسير بك رِواية بعد رِواية حتى تضبط متن البيقونية كما يُضبط الحديث نفسه.</p>
+      <div class="hero-actions">
+        <a href="#" class="cta-btn">التحق بدفعة جديدة</a>
+        <a href="#chain" class="cta-ghost">استعرض السلسلة ↓</a>
+      </div>
+      <div class="hero-stats">
+        <div><b>٣٤</b><span>بيتًا في المنظومة</span></div>
+        <div><b>٧</b><span>أدوات تعلّم متكاملة</span></div>
+        <div><b>٣</b><span>مستويات إشراف</span></div>
+      </div>
+    </div>
+
+    <div class="manuscript">
+      <span class="tag">افتتاحية المنظومة</span>
+      <div class="verse">
+        أَبْدَأُ بِالْحَمْدِ مُصَلِّياً عَلَى<br>
+        مُحَمَّدٍ خَيْرِ نَبِيٍّ أُرْسِلَا
+      </div>
+      <div class="attribution">— طه بن محمد الفتني البيقوني</div>
+      <div class="seal-stamp">سند<br>متصل</div>
+    </div>
+  </div>
+</section>
+
+<section class="chain-section" id="chain">
+  <div class="section-head">
+    <div class="eyebrow">سلسلة التعلّم</div>
+    <h2>حلقة إثر حلقة</h2>
+    <p>كما يُروى الحديث بسلسلة متصلة من الرواة، تمر رحلتك في تعلّم المتن بسلسلة أدوات متصلة، كل حلقة تُسلّمك لما بعدها.</p>
+  </div>
+
+  <div class="chain">
+    <div class="link">
+      <div class="ring"><span class="index">١</span>▤</div>
+      <h3>العرض التقديمي</h3>
+      <p>تصوّر عام لأبواب المنظومة قبل الدخول في التفصيل</p>
+    </div>
+    <div class="connector"></div>
+    <div class="link">
+      <div class="ring"><span class="index">٢</span>▥</div>
+      <h3>الكتاب التفاعلي</h3>
+      <p>شرح الشيخ ابن عثيمين مبوّبًا وقابلاً للتصفح</p>
+    </div>
+    <div class="connector"></div>
+    <div class="link">
+      <div class="ring"><span class="index">٣</span>☰</div>
+      <h3>الملخصات</h3>
+      <p>خلاصة كل باب في نقاط مركّزة للمراجعة السريعة</p>
+    </div>
+    <div class="connector"></div>
+    <div class="link">
+      <div class="ring"><span class="index">٤</span>◈</div>
+      <h3>أداة الحفظ</h3>
+      <p>تثبيت الأبيات بيتًا بيتًا بطريقة تراكمية</p>
+    </div>
+    <div class="connector"></div>
+    <div class="link">
+      <div class="ring"><span class="index">٥</span>◉</div>
+      <h3>أداة التسميع</h3>
+      <p>اختبار استرجاعك للمتن دون النظر إلى الأصل</p>
+    </div>
+    <div class="connector"></div>
+    <div class="link">
+      <div class="ring"><span class="index">٦</span>✓</div>
+      <h3>الاختبارات</h3>
+      <p>أسئلة تحليلية تقيس فهمك لا حفظك فقط</p>
+    </div>
+    <div class="connector"></div>
+    <div class="link">
+      <div class="ring"><span class="index">٧</span>▶</div>
+      <h3>الفيديوهات</h3>
+      <p>الدرس بصوت وصورة لمن يحتاج تلقيًا مباشرًا</p>
+    </div>
+  </div>
+</section>
+
+<section class="why grain" id="why" style="position:relative;">
+  <div class="why-grid">
+    <div>
+      <h2>لماذا <em>مصطلح الحديث</em> تحديدًا؟</h2>
+      <p>قبل أن يُقبل خبرٌ عن النبي ﷺ أو يُرد، وضع العلماء ميزانًا دقيقًا للنظر في سنده ومتنه. متن البيقونية هو أشهر مدخل لهذا الميزان: أبيات معدودة تحمل أصول علم كامل.</p>
+      <p>هذه المنصة لا تشرح لك المتن من جديد؛ هي تجمع كل ما شُرح وسُجّل وأُعد من قبل، في مسار واحد لا تتوه فيه.</p>
+    </div>
+    <div class="why-terms">
+      <div class="term">
+        <div class="t-word">الإسناد</div>
+        <div class="t-def">سلسلة الرواة التي نقلت الخبر عن النبي ﷺ، حلقة عن حلقة، حتى تصل إليك.</div>
+      </div>
+      <div class="term">
+        <div class="t-word">الصحيح</div>
+        <div class="t-def">ما اتصل سنده بنقل العدل الضابط عن مثله، من غير شذوذ ولا علّة.</div>
+      </div>
+      <div class="term">
+        <div class="t-word">العلّة</div>
+        <div class="t-def">سبب خفي يقدح في صحة الحديث، لا يدركه إلا من مارس هذا العلم طويلاً.</div>
+      </div>
+      <div class="term">
+        <div class="t-word">الضبط</div>
+        <div class="t-def">إتقان الراوي لما يرويه، حفظًا في الصدر أو كتابة في السطر.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cohorts" id="cohorts">
+  <div>
+    <div class="eyebrow" style="margin-bottom:18px;">نظام الدفعات</div>
+    <h2 style="font-family:'Aref Ruqaa', serif; font-size:clamp(28px,3.5vw,40px); color:var(--parchment-light); margin-bottom:20px; line-height:1.4;">تسير الدفعة كما تسير الرواية</h2>
+    <p style="color:var(--parchment-dim); font-size:16px; line-height:1.9; margin-bottom:16px;">تلتحق بدفعة لها مشرف يتابع تقدّمها بيتًا بيتًا وبابًا بابًا، لا تفتح الأدوات كلها دفعة واحدة، بل تُفتح الحلقات بالترتيب مع سير الدفعة، وللمشرف لوحة تُظهر له موضع كل طالب من السلسلة.</p>
+  </div>
+  <div>
+    <div class="cohort-card">
+      <span class="label">الدفعة ١٢ — مصطلح الحديث</span>
+      <h4>الباب الثالث: أقسام الحديث المردود</h4>
+      <p>٢٤ طالبًا · المشرف: أ. محمود سالم</p>
+      <div class="bar"><span style="width:58%"></span></div>
+    </div>
+    <div class="cohort-card">
+      <span class="label">الدفعة ١١ — مصطلح الحديث</span>
+      <h4>الباب السادس: الجرح والتعديل</h4>
+      <p>١٩ طالبًا · المشرف: أ. هبة الديب</p>
+      <div class="bar"><span style="width:82%"></span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <h2>ابدأ سندك الآن</h2>
+  <p>سجّل، وستُضم إلى أقرب دفعة متاحة</p>
+  <a href="#" class="cta-btn" style="padding:14px 40px; font-size:15px;">إنشاء حساب</a>
+  <div class="foot-links">
+    <a href="#chain">المحتوى</a>
+    <a href="#why">عن المتن</a>
+    <a href="#cohorts">الدفعات</a>
+    <a href="#">تسجيل الدخول</a>
+  </div>
+  <div class="copyright">البيقونية — منصة تعلّم مبنية على متن البيقونية في مصطلح الحديث</div>
+</footer>
+
+<script>
+  const burgerBtn = document.getElementById('burgerBtn');
+  const closeBtn = document.getElementById('closeBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  burgerBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
+  closeBtn.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  document.querySelectorAll('.menu-link').forEach(link => {
+    link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  });
+</script>
+</body>
+</html>
