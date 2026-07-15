@@ -1,6 +1,8 @@
 import { db } from "@/lib/db";
 import CreateCohortForm from "./CreateCohortForm";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminCohortsPage() {
   const cohorts = await db.cohort.findMany({
     include: { matn: true, supervisor: true, students: true },
